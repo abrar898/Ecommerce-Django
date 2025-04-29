@@ -1,0 +1,202 @@
+{% extends "base/base.html" %}
+
+{% block container %}
+{%endblock%}
+{% block image_section %}
+<!-- Leave empty to remove the image -->
+{% endblock %}
+{% block content %}
+
+<section class="cart-section py-8">
+{% if cart.items.all %}
+<div class="overflow-x-auto mt-5">
+    <h2 class="text-2xl font-semibold mb-4 text-center md:text-left cart-title">My Cart</h2>
+    <table class="min-w-full cart-table border rounded-lg shadow-md">
+        <thead class="cart-header">
+            <tr class="text-left">
+                <th class="p-3 border-b">Image</th>
+                <th class="p-3 border-b">Product Name</th>
+                <th class="p-3 border-b">Quantity</th>
+                <th class="p-3 border-b">Price</th>
+                <th class="p-3 border-b">Total</th>
+                <th class="p-3 border-b">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart.items.all %}
+            <tr class="border-b cart-item">
+                <td class="p-3">
+                    {% if item.product.product_images.first %}
+                    <img src="{{ item.product.product_images.first.image.url }}" alt="{{ item.product.product_name }}" class="w-16 h-16 object-contain rounded-lg">
+                    {% else %}
+                    <span class="text-gray-500">No Image</span>
+                    {% endif %}
+                </td>
+                <td class="p-3 font-semibold cart-product-name">{{ item.product.product_name }}</td>
+                <td class="p-3 cart-quantity">{{ item.quantity }}</td>
+                <td class="p-3 font-medium cart-price">${{ item.product.price }}</td>
+                <td class="p-3 font-semibold cart-total">${{ item.product.price }}</td>
+                <td class="p-3">
+                    <form method="post" action="{% url 'cart_remove' item.product.slug %}">
+                        {% csrf_token %}
+                        <button type="submit" class="px-4 py-2 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors duration-200 cart-remove-btn">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="flex justify-between items-center mt-8 flex-wrap gap-4">
+    <p class="text-2xl font-semibold cart-total-price">Total Price: ${{ cart.get_total_price }}</p>
+    <div class="flex gap-4">
+        <a href="{% url 'index' %}" class="px-6 py-3 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors duration-200 cart-continue-btn">Continue Shopping</a>
+        <a href="{% url 'checkout' %}" class="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200 cart-checkout-btn">Checkout & Get Receipt</a>
+    </div>
+</div>
+
+{% else %}
+<div class="text-center py-16 cart-empty">
+    <i class="fas fa-shopping-cart text-6xl mb-4 cart-empty-icon"></i>
+    <h2 class="text-2xl font-semibold mb-2">Your cart is empty</h2>
+    <p class="mb-8 cart-empty-text">Looks like you haven't added any products to your cart yet.</p>
+    <a href="{% url 'index' %}" class="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200 cart-shop-btn">Start Shopping</a>
+</div>
+{% endif %}
+</section>
+
+<style>
+    /* Cart styles with dark theme support */
+    .cart-section {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .cart-title {
+        color: var(--text-color);
+    }
+    
+    .cart-table {
+        background-color: var(--bg-color);
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .cart-header {
+        background-color: var(--container-color);
+    }
+    
+    .cart-header th {
+        color: var(--text-color);
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .cart-item {
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .cart-product-name {
+        color: var(--text-color);
+    }
+    
+    .cart-price {
+        color: var(--main-color);
+    }
+    
+    .cart-total {
+        color: var(--text-color);
+    }
+    
+    .cart-total-price {
+        color: var(--text-color);
+    }
+    
+    .cart-remove-btn {
+        background-color: #e74c3c;
+    }
+    
+    .cart-remove-btn:hover {
+        background-color: #c0392b;
+    }
+    
+    .cart-continue-btn {
+        background-color: #7f8c8d;
+    }
+    
+    .cart-continue-btn:hover {
+        background-color: #6c7a7a;
+    }
+    
+    .cart-checkout-btn {
+        background-color: var(--main-color);
+    }
+    
+    .cart-checkout-btn:hover {
+        background-color: var(--main-light-color);
+    }
+    
+    .cart-empty {
+        color: var(--text-color);
+    }
+    
+    .cart-empty-icon {
+        color: var(--container-color);
+    }
+    
+    .cart-empty-text {
+        color: var(--text-color);
+        opacity: 0.7;
+    }
+    
+    .cart-shop-btn {
+        background-color: var(--main-color);
+    }
+    
+    .cart-shop-btn:hover {
+        background-color: var(--main-light-color);
+    }
+    
+    /* Dark theme specific overrides */
+    .dark-theme .cart-table {
+        border-color: #3a3a3a;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dark-theme .cart-header {
+        background-color: #2a2a2a;
+    }
+    
+    .dark-theme .cart-header th {
+        border-color: #3a3a3a;
+    }
+    
+    .dark-theme .cart-item {
+        border-color: #3a3a3a;
+    }
+    
+    .dark-theme .cart-remove-btn {
+        background-color: #c0392b;
+    }
+    
+    .dark-theme .cart-remove-btn:hover {
+        background-color: #a93226;
+    }
+    
+    @media (max-width: 768px) {
+        .cart-table {
+            font-size: 0.9rem;
+        }
+        
+        .cart-table th,
+        .cart-table td {
+            padding: 0.5rem;
+        }
+        
+        .cart-remove-btn {
+            padding: 0.25rem 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
+

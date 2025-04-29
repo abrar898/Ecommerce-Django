@@ -1,0 +1,332 @@
+{% load cart_extras %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Receipt</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            font-size: 12px;
+        }
+        .receipt {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .company-info {
+            margin-bottom: 0;
+        }
+        .company-info h2 {
+            margin: 0 0 2px 0;
+            font-size: 16px;
+            color: #3f51b5;
+        }
+        .company-info p {
+            margin: 0;
+            font-size: 11px;
+            line-height: 1.1;
+        }
+        .receipt-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            color: #3f51b5;
+            margin-top: 5px;
+        }
+        .section {
+            margin-bottom: 5px;
+        }
+        .orange-header {
+            background-color: #ff7043;
+            color: white;
+            padding: 5px 8px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #3f51b5;
+            margin-bottom: 2px;
+            font-size: 12px;
+        }
+        .section-content {
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+        .section-content p {
+            margin: 1px 0;
+        }
+        .section-colored {
+            background-color: #f5f5f5;
+            padding: 5px;
+        }
+        .receipt-details {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .detail-col {
+            flex: 0 0 50%;
+            margin-bottom: 2px;
+        }
+        .receipt-total {
+            margin: 5px 0;
+            text-align: right;
+        }
+        .receipt-total-header {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .total-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #3f51b5;
+        }
+        .item-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+        .item-table th {
+            text-align: left;
+            padding: 5px;
+            background-color: #3f51b5;
+            color: white;
+            font-weight: 600;
+        }
+        .item-table td {
+            padding: 3px 5px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .item-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .qty-col {
+            width: 8%;
+        }
+        .desc-col {
+            width: 42%;
+        }
+        .price-col, .amount-col {
+            width: 25%;
+            text-align: right;
+        }
+        .summary-table {
+            width: 100%;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+        .summary-table td {
+            padding: 2px 0;
+        }
+        .summary-total {
+            font-weight: bold;
+            border-top: 1px solid #3f51b5;
+            padding-top: 3px !important;
+            color: #3f51b5;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .payment-info {
+            margin-bottom: 5px;
+            background-color: #f5f5f5;
+            padding: 5px;
+        }
+        .payment-info p {
+            margin: 2px 0;
+        }
+        .thank-you {
+            font-style: italic;
+            font-size: 16px;
+            margin: 10px 0;
+            text-align: center;
+            color: #4caf50;
+        }
+        .terms {
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+        .terms-title {
+            font-weight: bold;
+            margin-bottom: 2px;
+            color: #3f51b5;
+        }
+        .terms-content p {
+            margin: 2px 0;
+        }
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .qr-container {
+            text-align: center;
+        }
+        .qr-title {
+            font-size: 10px;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .footer {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 10px;
+            color: #777;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .receipt {
+                padding: 0;
+                max-width: 100%;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <!-- Header with company info and receipt title -->
+        <div class="header">
+            <div class="company-info">
+                <h2>Ecommerce Store Inc.</h2>
+                <p>123 Brew Street</p>
+                <p>Coffee Town, CT 12345</p>
+            </div>
+            <div class="receipt-title">ONLINE RECEIPT</div>
+        </div>
+        
+        <!-- Bill To Section -->
+        <div class="section">
+            <div class="orange-header">BILL TO</div>
+            <div class="section-content">
+                <p>{{ request.user.get_full_name|default:"Customer" }}</p>
+            </div>
+        </div>
+        
+        <!-- Ship To Section -->
+        <div class="section">
+            <div class="orange-header">SHIP TO</div>
+            <div class="section-content">
+                <p>{{ request.user.get_full_name|default:"Customer" }}</p>
+                <p>Delivery Address</p>
+            </div>
+        </div>
+        
+        <!-- Receipt Details -->
+        <div class="section section-colored">
+            <div class="receipt-details">
+                <div class="detail-col">
+                    <p><strong>Receipt #:</strong> {{ receipt_id }}</p>
+                </div>
+                <div class="detail-col">
+                    <p><strong>Date:</strong> {{ date|date:"m/d/Y" }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Receipt Total -->
+        <div class="receipt-total">
+            <div class="receipt-total-header">Receipt Total</div>
+            <div class="total-amount">${{ total_price|floatformat:2 }}</div>
+        </div>
+        
+        <!-- Item Details -->
+        <div class="section">
+            <div class="orange-header">ITEM DETAILS</div>
+            <table class="item-table">
+                <thead>
+                    <tr>
+                        <th class="qty-col">QTY</th>
+                        <th class="desc-col">DESCRIPTION</th>
+                        <th class="price-col">UNIT PRICE</th>
+                        <th class="amount-col">AMOUNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.product_name }}</td>
+                        <td class="price-col">${{ item.product.price|floatformat:2 }}</td>
+                        <td class="amount-col">${{ item.product.price|floatformat:2|multiply:item.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- Order Summary -->
+            <table class="summary-table">
+                <tr>
+                    <td></td>
+                    <td class="text-right">Subtotal</td>
+                    <td class="text-right" style="width:75px">${{ total_price|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-right">Tax (0%)</td>
+                    <td class="text-right">$0.00</td>
+                </tr>
+            
+                <tr>
+                    <td></td>
+                    <td class="text-right summary-total">Total</td>
+                    <td class="text-right summary-total">${{ total_price|floatformat:2 }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Payment Information -->
+        <div class="section">
+            <div class="orange-header">PAYMENT INFORMATION</div>
+            <div class="payment-info">
+                <p><strong>Payment method:</strong> Credit Card</p>
+                <p><strong>Transaction ID:</strong> {{ receipt_id }}</p>
+                <p><strong>Status:</strong> Paid</p>
+            </div>
+        </div>
+        
+        <!-- Thank You -->
+        <div class="thank-you">Thank You!</div>
+        
+        <!-- Terms and QR Code -->
+        <div class="bottom-section">
+            <div class="terms" style="flex: 0 0 65%;">
+                <div class="terms-title">TERMS & CONDITIONS</div>
+                <div class="terms-content">
+                    <p>Thank you for shopping with us!</p>
+                    <p>For returns and exchanges, please contact our customer support within 14 days of purchase.</p>
+                </div>
+            </div>
+            
+            <div style="flex: 0 0 35%;">
+                <div class="qr-container">
+                    <div class="qr-title">Scan for order tracking</div>
+                    <!-- Real QR code using receipt_id as data -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=Order-{{ receipt_id }}" alt="QR Code" width="80" height="80">
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This is an official receipt from Coffee Shop Inc. Thank you for your business!</p>
+        </div>
+    </div>
+</body>
+</html>

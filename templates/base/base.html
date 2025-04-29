@@ -1,0 +1,1462 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js" defer></script>
+    <!-- Load Alpine.js for Dropdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.2/cdn.min.js" defer></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb" crossorigin="anonymous">
+
+    <title>GreatKart | One of the Biggest Online Shopping Platform</title>
+
+    <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
+  
+ 
+
+<style>
+      /* Google fonts */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        scroll-padding-top:2rem;
+        font-family:'Poppins',sans-serif;
+        scroll-behavior:smooth;
+        list-style:none;
+        text-decoration:none;
+    }
+    /* variables */
+    :root{
+        --main-color:#ff7c03;
+        --main-light-color:#ff8b1f;
+        --text-color:#1a1d22;
+        --container-color:#f8f7fc;
+        --bg-color:#fff;
+    }
+
+    /* Dark Theme Variables */
+    .dark-theme {
+        --main-color:#ff7c03;
+        --main-light-color:#ff9e47;
+        --text-color:#f0f0f0;
+        --container-color:#2a2a2a;
+        --bg-color:#1a1a1a;
+    }
+    
+    /* Custom Scrollbar  */
+    html::-webkit-scrollbar{
+        width:0.5rem;
+        background:#474044;
+    }
+    html::-webkit-scrollbar-thumb{
+        border-radius:2rem;
+        background:var(--text-color);
+    }
+    img{
+        width:100%;
+    }
+    
+    body{
+        color:var(--text-color);
+        padding-top: 80px; /* Add padding to account for fixed navbar */
+        background-color: var(--bg-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Responsive Navbar Styles */
+    header {
+      transition: all 0.3s ease;
+    }
+    
+    #mobile-menu {
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    
+    #mobile-menu.hidden {
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    
+    #mobile-menu:not(.hidden) {
+      max-height: 500px;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+      
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+    
+    section{
+        padding:4rem 0 2rem;
+    }
+    .container{
+        max-width: 938px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+  
+  .swiper {
+      width: 100%;
+      height: 100%;
+  }
+  
+  .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .home-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 80%;
+  }
+  
+  .home-text {
+      max-width: 500px;
+  }
+  
+  .hero-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      line-height: 1.2;
+  }
+  
+  .home-img img {
+      width: 350px;
+      height: auto;
+      border-radius: 10px;
+  }
+  
+  .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ff6f61;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: 0.3s;
+  }
+  
+  .btn:hover {
+      background-color: #e35d52;
+  }
+  
+  /* Swiper Navigation */
+  .swiper-button-next, .swiper-button-prev {
+      color: #ff6f61;
+  }
+  
+    .btn{
+        padding:13px 26px ;
+        background:  #007bff;;
+        font-weight: 400;
+        border-radius: 0.5rem;
+        margin-top:30px;
+    }
+    .btn:hover{
+        background: var(--main-light-color);
+    }
+    .heading{
+        margin-top:1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .heading span{
+        border-bottom: 3px solid var(--main-color);
+    }
+    
+    
+    .shop-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(280px,auto));
+        gap:2rem;
+    }
+    .shop-container .box{
+        padding: 10px;
+        border-radius: 0.5rem;
+        box-shadow: 1px 2px 4px rgb(15 54 55 /10%);
+        position: relative;
+    }
+    .shop-container .box img{
+        width:100%;
+        height:250px;
+        object-fit: contain;
+        object-position: center;
+        background: var(--container-color);
+        border-radius: 0.5rem;
+    }
+    .shop-container .box h2{
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    .shop-container .box span{
+        font-size: 1rem;
+        font-weight: 500;
+        color:var(--main-color);
+    }
+    .shop-container .box .bx{
+        color:var(--main-color);
+        position:absolute;
+        bottom:1rem;
+        right:0.8rem;
+        padding: 10px;
+        font-size: 20px;
+        background: var(--main-color);
+        color:var(--bg-color);
+        border-radius: 0.5rem;
+    }
+    .shop-container .box .bx:hover{
+        background: var(--main-light-color);
+    }
+      /* Custom hover effect for dropdown items */
+    .nav-item .dropdown-menu .dropdown-item:hover {
+     background-color: blue;
+     color: white; /* Optional: Change text color to white on hover */
+}
+
+      .navbar {
+        height: 80px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+      }
+      
+      .navbar-nav .nav-item .nav-link {
+        font-size: 16px;
+        padding: 10px 20px;
+        font-weight: 500;
+        color: white;
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      }
+      
+      .navbar-nav .nav-item .nav-link:hover {
+        color: blue;
+        background-color: var(--main-light-color);
+        border-radius: 5px;
+      }
+      
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      
+        .hero-section {
+            text-align: center;
+            max-width: 600px;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 1rem;
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #111;
+            color: #fff;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: #111;
+            border: 2px solid #111;
+        }
+        .btn-secondary:hover {
+            background-color: #111;
+            color: #fff;
+        }
+/* Footer Styling */
+.footer-section {
+  background-color: #000;
+  color: white;
+}
+
+/* Footer Links */
+.footer-link {
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Responsive adjustments for the footer */
+@media (max-width: 576px) {
+  .footer-section .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Mobile Menu & Responsive Layout */
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+    /* Dark Theme Styles for Common Elements */
+    .product-price {
+      color: var(--main-color);
+    }
+    
+    .product-title, 
+    .category-title, 
+    .search-title {
+      color: var(--text-color);
+    }
+    
+    .category-description, 
+    .search-description {
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+    
+    .product-card,
+    .filter-bar,
+    .sort-select,
+    .filter-button {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .pagination-link {
+      background-color: var(--container-color);
+      color: var(--text-color);
+    }
+    
+    .pagination-link.active {
+      background-color: var(--main-color);
+    }
+    
+    .no-products, 
+    .empty-search, 
+    .empty-category {
+      background-color: var(--container-color);
+      color: var(--text-color);
+    }
+    
+    /* Homepage Styling with Dark Theme Support */
+    .hero-section {
+      background-color: var(--bg-color);
+    }
+    
+    .slide-content {
+      background-color: var(--container-color);
+      transition: background-color 0.3s ease;
+    }
+    
+    .hero-title {
+      color: var(--text-color);
+    }
+    
+    .hero-subtitle {
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+    
+    .hero-button {
+      background-color: var(--main-color);
+      color: white;
+    }
+    
+    .hero-button:hover {
+      background-color: var(--main-light-color);
+    }
+    
+    .swiper-nav-button::after {
+      color: var(--main-color);
+    }
+    
+    .feature-section {
+      background-color: var(--bg-color);
+      transition: background-color 0.3s ease;
+    }
+    
+    .section-title {
+      color: var(--text-color);
+    }
+    
+    .section-subtitle {
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+    
+    .feature-card {
+      background-color: var(--container-color);
+      transition: all 0.3s ease;
+    }
+    
+    .feature-icon {
+      color: var(--main-color);
+    }
+    
+    .feature-title {
+      color: var(--text-color);
+    }
+    
+    .feature-text {
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+    
+    .products-section {
+      background-color: var(--container-color);
+      transition: background-color 0.3s ease;
+    }
+    
+    .product-card {
+      background-color: var(--bg-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .product-details {
+      background-color: var(--bg-color);
+    }
+    
+    .review-count {
+      color: var(--text-color);
+      opacity: 0.6;
+    }
+    
+    .cart-add-btn {
+      background-color: var(--main-color);
+      color: white;
+    }
+    
+    .newsletter-section {
+      background-color: #2563eb;
+      transition: background-color 0.3s ease;
+    }
+    
+    .newsletter-title {
+      color: white;
+    }
+    
+    .newsletter-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .newsletter-input {
+      background-color: white;
+      color: #333;
+    }
+    
+    .newsletter-button {
+      background-color: var(--main-color);
+      color: white;
+    }
+    
+    .newsletter-button:hover {
+      background-color: var(--main-light-color);
+    }
+    
+    .newsletter-disclaimer {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Dark Theme Specific Styles */
+    .dark-theme .slide-content {
+      background-color: #2a2a2a;
+    }
+    
+    .dark-theme .feature-card {
+      background-color: #2a2a2a;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dark-theme .products-section {
+      background-color: #232323;
+    }
+    
+    .dark-theme .product-card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dark-theme .product-card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+    
+    .dark-theme .newsletter-section {
+      background-color: #1d4ed8;
+    }
+    
+    .dark-theme .newsletter-input {
+      background-color: #333;
+      color: #f0f0f0;
+      border: 1px solid #444;
+    }
+    
+    .dark-theme .newsletter-input::placeholder {
+      color: #aaa;
+    }
+
+    /* Dark Theme Styles for Common Elements */
+    .dark-theme .product-card,
+    .dark-theme .filter-bar,
+    .dark-theme .sort-select,
+    .dark-theme .filter-button,
+    .dark-theme .pagination-link:not(.active),
+    .dark-theme .empty-category,
+    .dark-theme .empty-search,
+    .dark-theme .no-products {
+        background-color: #2a2a2a;
+        color: var(--text-color);
+        border-color: #3a3a3a;
+    }
+    
+    .dark-theme .product-card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dark-theme .product-details {
+        background-color: #2a2a2a;
+    }
+    
+    .dark-theme .product-title {
+        color: #f0f0f0;
+    }
+    
+    .dark-theme .action-button {
+        background-color: #3a3a3a;
+        color: #f0f0f0;
+    }
+    
+    .dark-theme input,
+    .dark-theme select,
+    .dark-theme textarea {
+        background-color: #333;
+        color: #f0f0f0;
+        border-color: #444;
+    }
+    
+    .dark-theme input::placeholder {
+        color: #aaa;
+    }
+    
+    .dark-theme .footer-section {
+        background-color: #111;
+    }
+    
+    .dark-theme header {
+        background-color: #1a1a1a;
+    }
+    
+    .dark-theme #mobile-menu {
+        background-color: #252525;
+    }
+    
+    /* Animation for theme switch */
+    body, 
+    .product-card, 
+    .filter-bar,
+    input, 
+    select, 
+    header, 
+    .footer-section {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    /* Responsive Navbar Styles */
+    header {
+      transition: all 0.3s ease;
+    }
+
+    /* Common Elements Styling */
+    .product-price {
+      color: var(--main-color);
+    }
+    
+    .product-title, 
+    .category-title, 
+    .search-title {
+      color: var(--text-color);
+    }
+    
+    .category-description, 
+    .search-description {
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+    
+    .product-card,
+    .filter-bar,
+    .sort-select,
+    .filter-button {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .pagination-link {
+      background-color: var(--container-color);
+      color: var(--text-color);
+    }
+    
+    .pagination-link.active {
+      background-color: var(--main-color);
+    }
+    
+    .no-products, 
+    .empty-search, 
+    .empty-category {
+      background-color: var(--container-color);
+      color: var(--text-color);
+    }
+
+    .hero-section {
+      background-color: var(--bg-color);
+      position: relative;
+      overflow: hidden;
+      width: 100vw;
+      max-width: 100%;
+    }
+    
+    .slide-content {
+      background-color: var(--container-color);
+      transition: background-color 0.3s ease;
+      padding: 2rem 0;
+      height: 100%;
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    
+    .hero-content {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .hero-title {
+      color: var(--text-color);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+      color: var(--text-color);
+      opacity: 0.8;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .hero-button {
+      background-color: var(--main-color);
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .hero-button:hover {
+      background-color: var(--main-light-color);
+      transform: translateY(-2px);
+    }
+    
+    .hero-image-container {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+    
+    .hero-image {
+      max-width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Make sure the swiper container takes full width */
+    .swiper {
+      width: 100% !important;
+    }
+    
+    .swiper-slide {
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-image {
+        max-height: 450px;
+      }
+      
+      .hero-content {
+        padding-left: 2rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-image {
+        max-height: 500px;
+      }
+      
+      .slide-content {
+        padding: 0;
+      }
+    }
+    
+    @media (max-width: 767px) {
+      .hero-image-container {
+        margin-top: 1rem;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .hero-image {
+        max-height: 300px;
+        max-width: 90%;
+      }
+    }
+    
+    .swiper-nav-button::after {
+      color: var(--main-color);
+    }
+   
+    </style>
+  </head>
+  <body>
+
+
+    <header class="fixed top-0 left-0 w-full bg-blue-600 shadow-md z-50">
+      <nav class="flex items-center justify-between px-6 py-2">
+        <!-- Branding -->
+        <a class="text-white text-2xl font-bold" href="{% url 'index' %}">NAVA</a>
+    
+        <!-- Navbar Links - Hidden on Mobile, Visible on Desktop -->
+        <div class="hidden md:flex space-x-6" id="desktop-menu">
+          <a class="text-white hover:text-orange-400" href="{% url 'index' %}">Home</a>
+          
+          <!-- Categories Dropdown Menu -->
+      <div class="relative" x-data="{ open: false }">
+        <button 
+          @click="open = !open" 
+          class="text-white hover:text-orange-400 flex items-center"
+        >
+          Categories <i class="ml-2 fa fa-chevron-down"></i>
+        </button>
+
+        <!-- Dropdown Content -->
+        <ul 
+          x-show="open" 
+          @click.away="open = false" 
+          class="absolute bg-white shadow-md rounded-md mt-2 w-48 text-black py-2"
+        >
+          {% for category in categories %}
+            {% if category.slug %}
+              <li>
+                <a href="{% url 'category_filter' category.slug %}" 
+                   class="block px-4 py-2 hover:bg-gray-200">
+                  {{ category.category_name }}
+                </a>
+              </li>
+            {% else %}
+              <li>
+                <span class="block px-4 py-2 text-gray-500">{{ category.category_name }}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+    </div>
+    
+          <a class="text-white hover:text-orange-400" href="#shop">Shop</a>
+          <a class="text-white hover:text-orange-400" href="#new">New</a>
+          <a class="text-white hover:text-orange-400" href="{% url 'register'%}">Signup</a>
+          <a class="text-white hover:text-orange-400" href="{%url 'login'%}">Login</a>
+          <a class="text-white hover:text-orange-400" href="#">About</a>
+          <a class="text-white hover:text-orange-400" href="{% url 'add_product' %}">
+            <i class="fas fa-plus-circle"></i> Add Product
+          </a>
+        </div>
+
+    <!-- Right-Aligned Search Form & Cart -->
+    <div class="flex items-center space-x-4">
+      <!-- Search Form -->
+      <form class="hidden md:flex items-center space-x-2 bg-white p-1 rounded-md shadow-md" 
+        role="search" method="GET" action="{% url 'search-view' %}">
+        {% csrf_token %}
+        <input 
+          class="px-3 py-2 rounded-md focus:outline-none text-gray-700"
+          type="search" 
+          placeholder="Search..." 
+          name="search_query" 
+          required
+        />
+        <button 
+          class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
+          type="submit">
+          Search
+        </button>
+      </form>
+    
+          <!-- Cart & Menu Toggle -->
+<div class="relative flex items-center space-x-4">
+  <a href="{% url 'cart_detail' %}" class="relative text-white text-xl">
+    <i class="fa fa-shopping-cart"></i>
+
+    <!-- Cart Badge (Shows immediately if items exist) -->
+    <span id="cart-badge" 
+          class="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full flex justify-center items-center min-w-[18px] min-h-[18px] {% if cart_item_count == 0 %}hidden{% endif %}">
+                    {{ cart_item_count }}
+    </span>
+  </a>
+  
+  <!-- Dark Mode Toggle -->
+  <button id="theme-toggle" class="text-white text-xl">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Mobile Menu Button -->
+  <button id="mobile-menu-button" class="md:hidden text-white text-2xl">
+    <i class="fa fa-bars"></i>
+  </button>
+</div>
+        </div>
+      </nav>
+      
+      <!-- Mobile Menu - Hidden by Default -->
+      <div id="mobile-menu" class="hidden bg-blue-700 px-4 py-2 md:hidden">
+        <div class="flex flex-col space-y-3">
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="{% url 'index' %}">Home</a>
+          
+          <!-- Mobile Categories Dropdown -->
+          <div x-data="{ open: false }" class="border-b border-blue-500">
+            <button 
+              @click="open = !open" 
+              class="text-white hover:text-orange-400 flex items-center justify-between w-full py-2"
+            >
+              Categories <i class="ml-2 fa" :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+            </button>
+            
+            <div x-show="open" class="pl-4 py-2">
+              {% for category in categories %}
+                {% if category.slug %}
+                  <a href="{% url 'category_filter' category.slug %}" 
+                     class="block text-white hover:text-orange-400 py-1">
+                    {{ category.category_name }}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="#shop">Shop</a>
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="#new">New</a>
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="{% url 'register'%}">Signup</a>
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="{%url 'login'%}">Login</a>
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="#">About</a>
+          
+          <!-- Add Product Link -->
+          <a class="text-white hover:text-orange-400 py-2 border-b border-blue-500" href="{% url 'add_product' %}">
+            <i class="fas fa-plus-circle mr-1"></i> Add Product
+          </a>
+          
+          <!-- Mobile Search Form -->
+          <form class="py-2" role="search" method="GET" action="{% url 'search-view' %}">
+            {% csrf_token %}
+            <div class="flex">
+              <input 
+                class="px-3 py-2 rounded-l-md w-full focus:outline-none text-gray-700"
+                type="search" 
+                placeholder="Search..." 
+                name="search_query" 
+                required
+              />
+              <button 
+                class="px-4 py-2 bg-orange-500 text-white rounded-r-md hover:bg-orange-600 transition"
+                type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </header>
+
+
+      {%block container%}
+  <!-- Hero Slider Section -->
+  <section id="home" class="relative w-full overflow-hidden pt-16 md:pt-0 hero-section">
+    <div class="swiper mySwiper h-[60vh] md:h-[75vh] w-full">
+      <div class="swiper-wrapper">
+        
+        <!-- Slide 1 -->
+        <div class="swiper-slide w-full">
+          <div class="flex flex-col md:flex-row items-center h-full w-full px-6 md:px-16 py-8 md:py-0 slide-content">
+            <div class="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0 hero-content">
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight hero-title mb-4">
+                The Best Place <br class="hidden sm:block"> Find And Buy <br class="hidden sm:block"> Stylist Products
+              </h1>
+              <p class="mt-4 hero-subtitle max-w-lg mx-auto md:mx-0">
+                Discover our premium selection of handcrafted products designed for your lifestyle.
+              </p>
+              <a href="#shop" class="inline-block mt-6 px-6 py-3 hero-button rounded-lg shadow-md hover:bg-blue-700 transition">
+                Explore Now
+              </a>
+            </div>
+            <div class="w-full md:w-1/2 h-full flex items-center justify-center hero-image-container">
+              <img src="media/avatar2.jpg" alt="Hero Image" class="hero-image object-contain rounded-lg shadow-lg">
+            </div>
+          </div>
+        </div>
+  
+        <!-- Slide 2 -->
+        <div class="swiper-slide w-full">
+          <div class="flex flex-col md:flex-row items-center h-full w-full px-6 md:px-16 py-8 md:py-0 slide-content">
+            <div class="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0 hero-content">
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight hero-title mb-4">
+                Upgrade Your Style <br class="hidden sm:block"> With The Latest <br class="hidden sm:block"> Fashion Trends
+              </h1>
+              <p class="mt-4 hero-subtitle max-w-lg mx-auto md:mx-0">
+                Discover high-quality products at unbeatable prices that will elevate your everyday life.
+              </p>
+              <a href="#shop" class="inline-block mt-6 px-6 py-3 hero-button rounded-lg shadow-md hover:bg-blue-700 transition">
+                Shop Now
+              </a>
+            </div>
+            <div class="w-full md:w-1/2 h-full flex items-center justify-center hero-image-container">
+              <img src="media/home.png" alt="Hero Image" class="hero-image object-contain rounded-lg shadow-lg">
+            </div>
+          </div>
+        </div>
+  
+        <!-- Slide 3 -->
+        <div class="swiper-slide w-full">
+          <div class="flex flex-col md:flex-row items-center h-full w-full px-6 md:px-16 py-8 md:py-0 slide-content">
+            <div class="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0 hero-content">
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight hero-title mb-4">
+                Luxury & Comfort <br class="hidden sm:block"> In Every Purchase
+              </h1>
+              <p class="mt-4 hero-subtitle max-w-lg mx-auto md:mx-0">
+                Find exclusive deals on top brands today – transform your space with our premium selections.
+              </p>
+              <a href="#shop" class="inline-block mt-6 px-6 py-3 hero-button rounded-lg shadow-md hover:bg-blue-700 transition">
+                Discover More
+              </a>
+            </div>
+            <div class="w-full md:w-1/2 h-full flex items-center justify-center hero-image-container">
+              <img src="media/5.jpg" alt="Hero Image" class="hero-image object-contain rounded-lg shadow-lg">
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Navigation Buttons -->
+      <div class="swiper-button-next after:text-2xl swiper-nav-button"></div>
+      <div class="swiper-button-prev after:text-2xl swiper-nav-button"></div>
+  
+      <!-- Pagination Dots -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="py-12 px-4 feature-section">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 section-title">Why Choose Us</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Feature 1 -->
+        <div class="feature-card p-6 rounded-lg text-center shadow-sm hover:shadow-md transition">
+          <div class="feature-icon text-4xl mb-4 flex justify-center">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 feature-title">Fast Delivery</h3>
+          <p class="feature-text">Get your products delivered within 24-48 hours, nationwide.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card p-6 rounded-lg text-center shadow-sm hover:shadow-md transition">
+          <div class="feature-icon text-4xl mb-4 flex justify-center">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 feature-title">Secure Payment</h3>
+          <p class="feature-text">Your transactions are secured with industry-standard encryption.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card p-6 rounded-lg text-center shadow-sm hover:shadow-md transition">
+          <div class="feature-icon text-4xl mb-4 flex justify-center">
+            <i class="fas fa-undo"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 feature-title">Easy Returns</h3>
+          <p class="feature-text">Not satisfied? Return within 30 days for a full refund.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card p-6 rounded-lg text-center shadow-sm hover:shadow-md transition">
+          <div class="feature-icon text-4xl mb-4 flex justify-center">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 feature-title">24/7 Support</h3>
+          <p class="feature-text">Our customer service team is always here to help you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section id="shop" class="py-16 px-4 products-section">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-2 section-title">Featured Products</h2>
+        <p class="section-subtitle max-w-2xl mx-auto">Discover our most popular items that customers love. Quality products at amazing prices.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Product Card 1 -->
+        <div class="product-card rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1">
+          <div class="h-56 overflow-hidden">
+            <img src="media/avatar2.jpg" alt="Product 1" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 product-details">
+            <h3 class="font-semibold text-lg mb-1 product-title">Premium Coffee Maker</h3>
+            <div class="flex items-center mb-2">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="text-gray-500 text-sm ml-2 review-count">(42 reviews)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-bold product-price">$129.99</span>
+              <a href="#" class="cart-add-btn p-2 rounded-full hover:bg-blue-700">
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 2 -->
+        <div class="product-card rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1">
+          <div class="h-56 overflow-hidden">
+            <img src="media/home.png" alt="Product 2" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 product-details">
+            <h3 class="font-semibold text-lg mb-1 product-title">Ceramic Coffee Mug Set</h3>
+            <div class="flex items-center mb-2">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="text-gray-500 text-sm ml-2 review-count">(18 reviews)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-bold product-price">$39.99</span>
+              <a href="#" class="cart-add-btn p-2 rounded-full hover:bg-blue-700">
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 3 -->
+        <div class="product-card rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1">
+          <div class="h-56 overflow-hidden">
+            <img src="media/5.jpg" alt="Product 3" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 product-details">
+            <h3 class="font-semibold text-lg mb-1 product-title">Gourmet Coffee Beans</h3>
+            <div class="flex items-center mb-2">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <span class="text-gray-500 text-sm ml-2 review-count">(31 reviews)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-bold product-price">$24.99</span>
+              <a href="#" class="cart-add-btn p-2 rounded-full hover:bg-blue-700">
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 4 -->
+        <div class="product-card rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1">
+          <div class="h-56 overflow-hidden">
+            <img src="media/avatar2.jpg" alt="Product 4" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 product-details">
+            <h3 class="font-semibold text-lg mb-1 product-title">Coffee Grinder Pro</h3>
+            <div class="flex items-center mb-2">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <span class="text-gray-500 text-sm ml-2 review-count">(27 reviews)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-bold product-price">$49.99</span>
+              <a href="#" class="cart-add-btn p-2 rounded-full hover:bg-blue-700">
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-10">
+        <a href="#" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+          View All Products <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section class="py-16 px-4 newsletter-section text-white">
+    <div class="container mx-auto">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4 newsletter-title">Join Our Newsletter</h2>
+        <p class="mb-8 newsletter-subtitle">Stay updated with our latest products, special offers, and insider-only discounts.</p>
+        
+        <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+          <input 
+            type="email" 
+            placeholder="Enter your email address" 
+            class="flex-grow px-4 py-3 rounded-lg focus:outline-none newsletter-input"
+            required
+          >
+          <button type="submit" class="px-6 py-3 newsletter-button font-medium rounded-lg transition">
+            Subscribe Now
+          </button>
+        </form>
+        
+        <p class="mt-4 text-sm newsletter-disclaimer">By subscribing you agree to our Privacy Policy. We respect your privacy.</p>
+      </div>
+    </div>
+  </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      effect: "fade",
+      fadeEffect: {
+        crossFade: true
+      },
+    });
+
+    // Mobile menu toggle functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+      // Toggle menu when button is clicked
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle button icon between bars and X
+        const icon = mobileMenuButton.querySelector('i');
+        if (icon) {
+          icon.classList.toggle('fa-bars');
+          icon.classList.toggle('fa-times');
+        }
+      });
+      
+      // Close menu when a link inside is clicked
+      const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          // Don't close if it's a dropdown toggle or category
+          if (!this.parentElement.hasAttribute('x-data')) {
+            mobileMenu.classList.add('hidden');
+            
+            // Reset button icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon) {
+              icon.classList.add('fa-bars');
+              icon.classList.remove('fa-times');
+            }
+          }
+        });
+      });
+    }
+  });
+</script>
+
+
+{%endblock%}
+   
+
+
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+<!-- Footer -->
+<footer class="footer-section mt-5 text-light" style="background-color: #000;">
+  <div class="container mx-auto px-4 py-10">
+    <!-- Footer Top Section with 4 columns that stack on mobile -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Customer Service Column -->
+      <div>
+        <h6 class="text-white font-bold text-lg mb-4">Customer Service</h6>
+        <ul class="space-y-3">
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Help Center</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Transaction Services</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Terms & Conditions</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Feedback Survey</a></li>
+        </ul>
+      </div>
+
+      <!-- Shopping with Us Column -->
+      <div>
+        <h6 class="text-white font-bold text-lg mb-4">Shopping with Us</h6>
+        <ul class="space-y-3">
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Making Payments</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Delivery Options</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Buyer Protection</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Returns & Refunds</a></li>
+        </ul>
+      </div>
+
+      <!-- Collaborate with Us Column -->
+      <div>
+        <h6 class="text-white font-bold text-lg mb-4">Collaborate with Us</h6>
+        <ul class="space-y-3">
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Partnerships</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Affiliate Program</a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Seller Login</a></li>
+          <li><a href="{% url 'add_product' %}" class="footer-link text-gray-300 hover:text-orange-400 transition">
+            <i class="fas fa-plus-circle mr-1"></i> Add Product
+          </a></li>
+          <li><a href="#" class="footer-link text-gray-300 hover:text-orange-400 transition">Become a Vendor</a></li>
+        </ul>
+      </div>
+
+      <!-- Payment Methods Column -->
+      <div>
+        <h6 class="text-white font-bold text-lg mb-4">Pay with</h6>
+        <div class="grid grid-cols-2 gap-3">
+          <a href="https://www.paypal.com/" target="_blank" class="bg-white rounded p-1 hover:opacity-80 transition">
+            <img src="https://opendocs.com/wp-content/uploads/2018/11/Paypal-Logo.png" 
+                alt="PayPal" class="h-8 object-contain">
+          </a>
+          <a href="https://www.visa.com/" target="_blank" class="bg-white rounded p-1 hover:opacity-80 transition">
+            <img src="https://s3-ap-southeast-2.amazonaws.com/media.meritonsuites.com.au/wp-content/uploads/2020/08/13112510/visa-logo.png" 
+                alt="Visa" class="h-8 object-contain">
+          </a>
+          <a href="https://www.mastercard.com/" target="_blank" class="bg-white rounded p-1 hover:opacity-80 transition">
+            <img src="https://pngimg.com/uploads/mastercard/mastercard_PNG23.png" 
+                alt="Mastercard" class="h-8 object-contain">
+          </a>
+          <a href="https://easypaisa.com.pk/" target="_blank" class="bg-white rounded p-1 hover:opacity-80 transition">
+            <img src="https://propakistani.pk/wp-content/uploads/2022/07/Easypaisa-Launches-a-Credit-Score-Visibility-Feature-for-Customers.jpg" 
+                alt="Easypaisa" class="h-8 object-contain">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-8 border-gray-700">
+
+    <!-- Footer Bottom Section -->
+    <div class="flex flex-col md:flex-row gap-8">
+      
+      <!-- Newsletter Subscription -->
+      <div class="w-full md:w-1/2">
+        <h6 class="text-white font-bold text-lg mb-4">Subscribe to our Newsletter</h6>
+        <form class="newsletter-form flex flex-col sm:flex-row gap-2">
+          <input type="email" class="bg-gray-800 text-white px-4 py-2 rounded flex-grow w-full" placeholder="Enter your email">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition" type="submit">
+            Subscribe
+          </button>
+  </form>
+</div>
+
+      <!-- Social Media Links -->
+      <div class="w-full md:w-1/2 md:text-right">
+        <h6 class="text-white font-bold text-lg mb-4">Follow Us</h6>
+        <div class="flex gap-4 md:justify-end">
+          <a href="#" class="text-gray-300 hover:text-orange-400 text-xl transition">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-orange-400 text-xl transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-orange-400 text-xl transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-orange-400 text-xl transition">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center mt-8 text-gray-400">
+      <p>&copy; 2025 NAVA. All rights reserved.</p>
+      <div class="flex justify-center mt-4 space-x-4">
+        <a href="#" class="text-gray-400 hover:text-orange-400 text-sm">Privacy Policy</a>
+        <a href="#" class="text-gray-400 hover:text-orange-400 text-sm">Terms of Service</a>
+        <a href="#" class="text-gray-400 hover:text-orange-400 text-sm">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+  function updateCartCount() {
+    fetch("{% url 'cart_detail' %}", {
+      headers: {
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        let cartBadge = document.getElementById("cart-badge");
+        if (data.count > 0) {
+          cartBadge.textContent = data.count;
+          cartBadge.classList.remove("hidden"); // Show badge
+        } else {
+          cartBadge.classList.add("hidden"); // Hide badge if empty
+        }
+      })
+      .catch(error => console.error("Error fetching cart count:", error));
+  }
+
+  // Update on page load
+  document.addEventListener("DOMContentLoaded", updateCartCount);
+  
+  // Also update cart count after adding items to cart
+  document.addEventListener("DOMContentLoaded", function() {
+    const addToCartButtons = document.querySelectorAll(".add-to-cart");
+    addToCartButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        // Add a slight delay to allow server to process the addition
+        setTimeout(updateCartCount, 500);
+      });
+    });
+  });
+</script>
+
+<!-- Dark Mode Toggle Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleIcon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference or prefer-color-scheme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Apply dark theme if saved or preferred
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.body.classList.add('dark-theme');
+      themeToggleIcon.classList.remove('fa-moon');
+      themeToggleIcon.classList.add('fa-sun');
+    }
+    
+    // Toggle theme when button is clicked
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('dark-theme');
+      
+      // Update icon
+      if (document.body.classList.contains('dark-theme')) {
+        themeToggleIcon.classList.remove('fa-moon');
+        themeToggleIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeToggleIcon.classList.remove('fa-sun');
+        themeToggleIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  });
+</script>
+
+  </body>
+</html>
